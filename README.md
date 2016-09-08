@@ -1,2 +1,3 @@
 #Citation Parser
-A basic add-on
+Firefox Add-on
+Copyright Anda Zhou - 2016 Semantic Science
