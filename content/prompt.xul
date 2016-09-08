@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<dialog id="myDialog"
+        title="C-Parser Prompt"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        onload="init();"
+        buttons="accept, extra1"
+        buttonlabelaccept="OK"
+        buttonlabelextra1="Select All"
+        ondialogextra1="toggle();"
+        ondialogaccept="return doContinue();">
+
+    <script type="application/x-javascript">
+        function init() {
+            var target = document.getElementById('checkboxes_container');
+            var titles = window.arguments[1];
+            
+            for (var i = 0; i &lt; titles.length; i++) {
+                var box = document.createElementNS('http://www.w3.org/1999/xhtml', 'input');
+                box.setAttribute('id', 'check_' + i);
+                box.setAttribute('type', 'checkbox');
+                box.setAttribute('name', 'boxes');
+                box.setAttribute('value', i);
+                var label = document.createElementNS('http://www.w3.org/1999/xhtml', 'label');
+                label.setAttribute('for', i);
+                label.innerHTML = titles[i] + '\n';
+                target.appendChild(box);
+                target.appendChild(label);
+            }
+            
+           /*
+            var radio = document.createElementNS('http://www.w3.org/1999/xhtml', 'input');
+            radio.setAttribute('id', 'scholar');
+            radio.setAttribute('type', 'checkbox');
+            radio.setAttribute('value', 'scholar');
+            var rlabel = document.createElementNS('http://www.w3.org/1999/xhtml', 'label');
+            rlabel.setAttribute('for', 'scholar');
+            rlabel.innerHTML = 'Search with Google Scholar';
+            target.appendChild(radio);
+            target.appendChild(rlabel);
+            
+            */
+        }
+
+        function toggle() {
+            var titles = window.arguments[1];
+            for (var j = 0; j &lt; titles.length; j++) {
+                var box = document.getElementById('check_' + j);
+                box.checked = true;
+            }
+
+        /*window.arguments[2] = document.querySelector('#scholar').checked;*/
+          
+        }
+          
+          
+        function doContinue() {
+
+            var titles = window.arguments[1];
+            for (var i = 0; i &lt; titles.length; i++) {
+                window.arguments[0]['check_' + i] = document.querySelector('#check_' + i).checked;
+            }
+
+            return true;
+        }
+    </script>
+
+    <html:div style="width: 410px; white-space: pre-wrap;">
+
+            <vbox>
+            Please select articles to import:
+
+    
+        <html:div id="checkboxes_container">
+
+
+        </html:div>
+
+                    </vbox>
+    </html:div>
+</dialog>
